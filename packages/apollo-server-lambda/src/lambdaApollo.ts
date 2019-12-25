@@ -39,6 +39,10 @@ export function graphqlLambda(
         statusCode: 500,
       });
     }
+    if (event.isBase64Encoded && event.body) {
+      const bodyBuffer = new Buffer(event.body, 'base64');
+      event.body = bodyBuffer.toString('ascii');
+    }
     runHttpQuery([event, context], {
       method: event.httpMethod,
       options: options,
