@@ -41,7 +41,7 @@ export function graphqlLambda(
     }
     if (event.isBase64Encoded && event.body) {
       const bodyBuffer = new Buffer(event.body, 'base64');
-      event.body = bodyBuffer.toString('ascii');
+      event.body = bodyBuffer.toString('utf8');
     }
     runHttpQuery([event, context], {
       method: event.httpMethod,
